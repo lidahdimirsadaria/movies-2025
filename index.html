@@ -129,7 +129,15 @@
 <body>
     <header>
         <h1>Explore Popular Movies</h1>
-		
+    </header>
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search for a movie...">
+        <button onclick="searchMovies()">Search</button>
+    </div>
+    <div class="container" id="movies-container">
+        <!-- Movies will be displayed here -->
+    </div>
+
 <script type="text/javascript">
 	atOptions = {
 		'key' : '26ab5f7e2864a41f249fc7e5a2522d5d',
@@ -141,16 +149,7 @@
 </script>
 <script type="text/javascript" src="//fryboldlymalice.com/26ab5f7e2864a41f249fc7e5a2522d5d/invoke.js"></script>
 <script type='text/javascript' src='//fryboldlymalice.com/04/a8/e7/04a8e72e519ef1af64c4bed16f6c43ed.js'></script>
-
-    </header>
-    <div class="search-container">
-        <input type="text" id="search-input" placeholder="Search for a movie...">
-        <button onclick="searchMovies()">Search</button>
-    </div>
-    <div class="container" id="movies-container">
-        <!-- Movies will be displayed here -->
-    </div>
-
+	
     <div id="modal">
         <div id="modal-content">
             <button onclick="closeModal()">Close</button>
@@ -159,10 +158,8 @@
             <p class="genres" id="modal-genres"></p>
             <p id="modal-overview"></p>
             <p id="modal-release-date"></p>
-            <iframe id="modal-trailer" allowfullscreen></iframe>
-        </div>
-    </div>
-
+			<iframe id="modal-trailer" width="100%" height="540" frameborder="0" allowfullscreen></iframe>
+    <div class="ad-container">
 <script type="text/javascript">
 	atOptions = {
 		'key' : '26ab5f7e2864a41f249fc7e5a2522d5d',
@@ -173,6 +170,13 @@
 	};
 </script>
 <script type="text/javascript" src="//fryboldlymalice.com/26ab5f7e2864a41f249fc7e5a2522d5d/invoke.js"></script>
+
+<script type='text/javascript' src='//fryboldlymalice.com/04/a8/e7/04a8e72e519ef1af64c4bed16f6c43ed.js'></script>
+
+            </div>
+            <button onclick="goBackToMovies()">Back to Movies</button>
+        </div>
+    </div>
 	
     <script>
         const API_KEY = '3f45488e50ce5ef5a25ed21f1fcd98f3'; // Replace with your TMDB API key
