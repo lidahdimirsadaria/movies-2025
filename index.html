@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movies API with TMDB</title>
+    <title>Movies 2025</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -79,7 +79,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             color: white;
             justify-content: center;
             align-items: center;
@@ -90,7 +90,7 @@
             background: #222;
             padding: 2rem;
             border-radius: 8px;
-            max-width: 600px;
+            max-width: 900px;
             width: 90%;
             position: relative;
         }
@@ -103,6 +103,11 @@
         }
         #modal p {
             margin: 0.5rem 0;
+        }
+        #modal .genres {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 1rem;
         }
         #modal button {
             margin-top: 1rem;
@@ -150,6 +155,7 @@
             <button onclick="closeModal()">Close</button>
             <img id="modal-img" src="" alt="Movie Poster">
             <h2 id="modal-title"></h2>
+            <p class="genres" id="modal-genres"></p>
             <p id="modal-overview"></p>
             <p id="modal-release-date"></p>
             <iframe id="modal-trailer" width="100%" height="315" frameborder="0" allowfullscreen></iframe>
@@ -203,6 +209,9 @@
             document.getElementById('modal-title').textContent = movie.title;
             document.getElementById('modal-overview').textContent = movie.overview || 'No synopsis available.';
             document.getElementById('modal-release-date').textContent = `Release Date: ${movie.release_date}`;
+
+            const genres = movie.genres.map(genre => genre.name).join(', ');
+            document.getElementById('modal-genres').textContent = `Genres: ${genres}`;
 
             const trailer = movie.videos.results.find(video => video.type === 'Trailer');
             document.getElementById('modal-trailer').src = trailer ? `https://www.youtube.com/embed/${trailer.key}` : '';
