@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TMDB Popular Movies</title>
+    <title>Movies API with TMDB</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -21,69 +21,66 @@
             padding: 2rem;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
+            gap: 1.5rem;
         }
         .movie {
             background-color: white;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
             text-align: center;
         }
         .movie img {
             width: 100%;
-            border-radius: 8px;
+            height: 300px;
+            object-fit: cover;
         }
         .movie h3 {
-            margin: 0.5rem 0 0;
-            font-size: 1rem;
-            color: #333;
+            font-size: 1.2rem;
+            margin: 0.5rem;
+        }
+        .movie p {
+            color: #555;
+            margin: 0.5rem;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>TMDB Popular Movies</h1>
+        <h1>Popular Movies</h1>
     </header>
     <div class="container" id="movies-container">
-        <!-- Movies will be dynamically added here -->
+        <!-- Movies will be displayed here -->
     </div>
 
     <script>
-        const API_KEY = '3f45488e50ce5ef5a25ed21f1fcd98f3'; // Ganti dengan API Key Anda
+        const API_KEY = '3f45488e50ce5ef5a25ed21f1fcd98f3'; // Ganti dengan API key TMDB Anda
         const BASE_URL = 'https://api.themoviedb.org/3';
-        const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
-        const container = document.getElementById('movies-container');
+        const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 
-        async function getPopularMovies() {
+        async function fetchMovies() {
             try {
-                const response = await fetch(${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1);
-                if (!response.ok) {
-                    throw new Error(HTTP error! status: ${response.status});
-                }
+                const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1`);
                 const data = await response.json();
                 displayMovies(data.results);
             } catch (error) {
                 console.error('Error fetching movies:', error);
-                container.innerHTML = <p style="color: red;">Failed to load movies. Please check your API Key or network connection.</p>;
             }
         }
 
         function displayMovies(movies) {
-            container.innerHTML = '';
-            movies.forEach(movie => {
-                const movieElement = document.createElement('div');
-                movieElement.classList.add('movie');
-                movieElement.innerHTML = `
-                    <img src="${IMAGE_URL}${movie.poster_path}" alt="${movie.title}">
+            const moviesContainer = document.getElementById('movies-container');
+            moviesContainer.innerHTML = movies.map(movie => `
+                <div class="movie">
+                    <img src="${IMG_URL + movie.poster_path}" alt="${movie.title}">
                     <h3>${movie.title}</h3>
                     <p>Rating: ${movie.vote_average}</p>
-                `;
-                container.appendChild(movieElement);
-            });
+                </div>
+            `).join('');
         }
 
-        getPopularMovies();
+        // Call the function to fetch movies when the page loads
+        fetchMovies();
     </script>
 </body>
 </html>
