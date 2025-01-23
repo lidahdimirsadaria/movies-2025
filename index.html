@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TMDB Movies with Ads</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem 2rem;
+            text-align: center;
+        }
+        .container {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .movie {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            text-align: center;
+        }
+        .movie img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .movie h3 {
+            margin: 0.5rem 0 0;
+            font-size: 1rem;
+            color: #333;
+        }
+        .ads {
+            margin: 2rem auto;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>TMDB Popular Movies</h1>
+    </header>
+
+    <!-- Area Iklan Atas -->
+    <div class="ads" id="ad-top">
+        <!-- Masukkan Kode Iklan Adsterra di sini -->
+        <script async src="https://your-adsterra-script.js"></script>
+    </div>
+
+    <div class="container" id="movies-container">
+        <!-- Movies will be dynamically added here -->
+    </div>
+
+    <!-- Area Iklan Bawah -->
+    <div class="ads" id="ad-bottom">
+        <!-- Masukkan Kode Iklan Adsterra di sini -->
+        <script async src="<script type="text/javascript">
+	atOptions = {
+		'key' : '26ab5f7e2864a41f249fc7e5a2522d5d',
+		'format' : 'iframe',
+		'height' : 50,
+		'width' : 320,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//fryboldlymalice.com/26ab5f7e2864a41f249fc7e5a2522d5d/invoke.js"></script>"></script>
+    </div>
+
+    <script>
+        const API_KEY = '3f45488e50ce5ef5a25ed21f1fcd98f3'; // Ganti dengan API Key TMDB Anda
+        const BASE_URL = 'https://api.themoviedb.org/3';
+        const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
+        const container = document.getElementById('movies-container');
+
+        // Fungsi untuk mendapatkan daftar film populer
+        async function getPopularMovies() {
+            try {
+                const response = await fetch(${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1);
+                const data = await response.json();
+                displayMovies(data.results);
+            } catch (error) {
+                console.error('Error fetching movies:', error);
+            }
+        }
+
+        // Fungsi untuk menampilkan film ke dalam HTML
+        function displayMovies(movies) {
+            container.innerHTML = '';
+            movies.forEach(movie => {
+                const movieElement = document.createElement('div');
+                movieElement.classList.add('movie');
+                movieElement.innerHTML = `
+                    <img src="${IMAGE_URL}${movie.poster_path}" alt="${movie.title}">
+                    <h3>${movie.title}</h3>
+                    <p>Rating: ${movie.vote_average}</p>
+                `;
+                container.appendChild(movieElement);
+            });
+        }
+
+        // Panggil fungsi untuk mendapatkan film populer
+        getPopularMovies();
+    </script>
+</body>
+</html>
