@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movies API with TMDB</title>
+    <title>Movies 2025</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,6 +16,26 @@
             color: white;
             padding: 1rem 2rem;
             text-align: center;
+        }
+        .search-container {
+            margin: 1rem auto;
+            text-align: center;
+        }
+        .search-container input {
+            padding: 0.5rem;
+            font-size: 1rem;
+            width: 300px;
+        }
+        .search-container button {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .search-container button:hover {
+            background-color: #555;
         }
         .container {
             padding: 2rem;
@@ -43,12 +63,28 @@
             color: #555;
             margin: 0.5rem;
         }
+        .movie .release-date {
+            font-size: 0.9rem;
+            color: #777;
+        }
+        .ad-container {
+            text-align: center;
+            margin: 2rem 0;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Popular Movies</h1>
+        <h1>Movies Explorer</h1>
     </header>
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search for a movie...">
+        <button onclick="searchMovies()">Search</button>
+    </div>
+    <div class="ad-container">
+        <!-- Adsterra ad placeholder -->
+        <p>Your Ad Here</p>
+    </div>
     <div class="container" id="movies-container">
         <!-- Movies will be displayed here -->
     </div>
@@ -58,9 +94,9 @@
         const BASE_URL = 'https://api.themoviedb.org/3';
         const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 
-        async function fetchMovies() {
+        async function fetchMovies(url) {
             try {
-                const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1`);
+                const response = await fetch(url);
                 const data = await response.json();
                 displayMovies(data.results);
             } catch (error) {
@@ -74,13 +110,23 @@
                 <div class="movie">
                     <img src="${IMG_URL + movie.poster_path}" alt="${movie.title}">
                     <h3>${movie.title}</h3>
+                    <p class="release-date">Release Date: ${movie.release_date}</p>
+                    <p>${movie.overview || 'No synopsis available.'}</p>
                     <p>Rating: ${movie.vote_average}</p>
                 </div>
             `).join('');
         }
 
-        // Call the function to fetch movies when the page loads
-        fetchMovies();
+        function searchMovies() {
+            const query = document.getElementById('search-input').value;
+            if (query.trim()) {
+                const searchURL = `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`;
+                fetchMovies(searchURL);
+            }
+        }
+
+        // Fetch popular movies on page load
+        fetchMovies(`${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1`);
     </script>
 </body>
 </html>
