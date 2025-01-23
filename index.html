@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TMDB Movies with Ads</title>
+    <title>TMDB Movies</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -39,23 +39,18 @@
             font-size: 1rem;
             color: #333;
         }
-        .ads {
-            margin: 2rem auto;
-            text-align: center;
-        }
     </style>
 </head>
 <body>
     <header>
         <h1>TMDB Popular Movies</h1>
     </header>
-
     <div class="container" id="movies-container">
         <!-- Movies will be dynamically added here -->
     </div>
 
     <script>
-        const API_KEY = '3f45488e50ce5ef5a25ed21f1fcd98f3'; // Ganti dengan API Key TMDB Anda
+        const API_KEY = '3f45488e50ce5ef5a25ed21f1fcd98f3'; // Ganti dengan API Key Anda
         const BASE_URL = 'https://api.themoviedb.org/3';
         const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
         const container = document.getElementById('movies-container');
@@ -64,10 +59,15 @@
         async function getPopularMovies() {
             try {
                 const response = await fetch(${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1);
+                if (!response.ok) {
+                    throw new Error(HTTP error! status: ${response.status});
+                }
                 const data = await response.json();
+                console.log(data); // Debug: Cek apakah data diterima
                 displayMovies(data.results);
             } catch (error) {
                 console.error('Error fetching movies:', error);
+                container.innerHTML = <p style="color: red;">Failed to load movies. Check your API key or network connection.</p>;
             }
         }
 
