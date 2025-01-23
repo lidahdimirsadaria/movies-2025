@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Where To Watch Popular Movies 2025</title>
+    <title>Where To Watch Popular Movies free</title>
     <style>
-        /* Existing styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -69,6 +68,10 @@
             font-size: 0.9rem;
             color: #777;
         }
+        .ad-container {
+            text-align: center;
+            margin: 2rem 0;
+        }
         #modal {
             display: none;
             position: fixed;
@@ -91,53 +94,102 @@
             width: 90%;
             position: relative;
         }
+        #modal img {
+            width: 100%;
+            border-radius: 8px;
+        }
         #modal h2 {
             margin: 1rem 0;
+        }
+        #modal p {
+            margin: 0.5rem 0;
         }
         #modal .genres {
             font-size: 0.9rem;
             color: #aaa;
             margin-bottom: 1rem;
         }
-        iframe {
-            width: 100%;
-            max-width: 900px;
-            height: 200px;
+        #modal button {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #e50914;
+            color: white;
             border: none;
-            aspect-ratio: 16/9;
+            cursor: pointer;
+            border-radius: 4px;
         }
-        iframe:fullscreen {
-            width: 100%;
-            height: 100%;
+        #modal button:hover {
+            background-color: #f30c1d;
+        }
+        .ad-section {
+            margin-top: 1rem;
+            text-align: center;
+            background-color: #444;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        .ad-section p {
+            color: #ccc;
+            margin: 0;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Movies Explorer 2025</h1>
+        <h1>Movies Explorer</h1>
     </header>
     <div class="search-container">
         <input type="text" id="search-input" placeholder="Search for a movie...">
         <button onclick="searchMovies()">Search</button>
     </div>
+    <div class="ad-container">
+<script type="text/javascript">
+	atOptions = {
+		'key' : '26ab5f7e2864a41f249fc7e5a2522d5d',
+		'format' : 'iframe',
+		'height' : 50,
+		'width' : 320,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//fryboldlymalice.com/26ab5f7e2864a41f249fc7e5a2522d5d/invoke.js"></script>
+
+<script type='text/javascript' src='//fryboldlymalice.com/04/a8/e7/04a8e72e519ef1af64c4bed16f6c43ed.js'></script>
+    </div>
     <div class="container" id="movies-container">
         <!-- Movies will be displayed here -->
     </div>
+
     <div id="modal">
         <div id="modal-content">
             <button onclick="closeModal()">Close</button>
-            <img id="modal-img" src="" alt="Movie Poster">
+            <img id="modal-img" src="" alt="Movie Backdrop">
             <h2 id="modal-title"></h2>
             <p class="genres" id="modal-genres"></p>
             <p id="modal-overview"></p>
             <p id="modal-release-date"></p>
-            <iframe id="modal-trailer" allowfullscreen></iframe>
+            <iframe id="modal-trailer" width="100%" height="560" frameborder="0" allowfullscreen></iframe>
+            <div class="ad-section">
+<script type="text/javascript">
+	atOptions = {
+		'key' : '26ab5f7e2864a41f249fc7e5a2522d5d',
+		'format' : 'iframe',
+		'height' : 50,
+		'width' : 320,
+		'params' : {}
+	};
+</script>
+<script type="text/javascript" src="//fryboldlymalice.com/26ab5f7e2864a41f249fc7e5a2522d5d/invoke.js"></script>
+            </div>
+            <button onclick="goBackToMovies()">Back to Movies</button>
         </div>
     </div>
+
     <script>
-        const API_KEY = '3f45488e50ce5a25ed21f1fcd98f3';
+        const API_KEY = '3f45488e50ce5ef5a25ed21f1fcd98f3'; // Ganti dengan API key TMDB Anda
         const BASE_URL = 'https://api.themoviedb.org/3';
         const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+        const BACKDROP_URL = 'https://image.tmdb.org/t/p/original';
 
         async function fetchMovies(url) {
             try {
@@ -161,19 +213,22 @@
 
         function displayMovies(movies) {
             const moviesContainer = document.getElementById('movies-container');
-            moviesContainer.innerHTML = movies.map(movie => `
-                <div class="movie" onclick="fetchMovieDetails(${movie.id})">
-                    <img src="${IMG_URL + movie.poster_path}" alt="${movie.title}">
-                    <h3>${movie.title} (${new Date(movie.release_date).getFullYear()})</h3>
-                    <p class="release-date">Release Date: ${movie.release_date}</p>
-                    <p>Rating: ${movie.vote_average}</p>
-                </div>
-            `).join('');
+            moviesContainer.innerHTML = movies.map(movie => {
+                const year = movie.release_date ? `(${movie.release_date.split('-')[0]})` : '';
+                return `
+                    <div class="movie" onclick="fetchMovieDetails(${movie.id})">
+                        <img src="${IMG_URL + movie.poster_path}" alt="${movie.title}">
+                        <h3>${movie.title} ${year}</h3>
+                        <p class="release-date">Release Date: ${movie.release_date}</p>
+                        <p>Rating: ${movie.vote_average}</p>
+                    </div>
+                `;
+            }).join('');
         }
 
         function openModal(movie) {
-            document.getElementById('modal-img').src = IMG_URL + movie.poster_path;
-            document.getElementById('modal-title').textContent = `${movie.title} (${new Date(movie.release_date).getFullYear()})`;
+            document.getElementById('modal-img').src = BACKDROP_URL + movie.backdrop_path;
+            document.getElementById('modal-title').textContent = movie.title;
             document.getElementById('modal-overview').textContent = movie.overview || 'No synopsis available.';
             document.getElementById('modal-release-date').textContent = `Release Date: ${movie.release_date}`;
 
@@ -192,6 +247,10 @@
             document.getElementById('modal-trailer').src = '';
         }
 
+        function goBackToMovies() {
+            closeModal();
+        }
+
         function searchMovies() {
             const query = document.getElementById('search-input').value;
             if (query.trim()) {
@@ -200,6 +259,7 @@
             }
         }
 
+        // Fetch popular movies on page load
         fetchMovies(`${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1`);
     </script>
 </body>
