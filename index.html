@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Where To Watch Popular Movies free</title>
+    <title>Where To Watch Popular Movies</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -53,7 +53,7 @@
         }
         .movie img {
             width: 100%;
-            height: 200px;
+            height: 120px;
             object-fit: cover;
         }
         .movie h3 {
@@ -132,17 +132,22 @@
             color: #ccc;
             margin: 0;
         }
+        iframe {
+            max-width: 100%;
+            border-radius: 8px;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Movies Explorer</h1>
+        <h1>Movies Explorer New</h1>
     </header>
     <div class="search-container">
         <input type="text" id="search-input" placeholder="Search for a movie...">
         <button onclick="searchMovies()">Search</button>
     </div>
     <div class="ad-container">
+
 <script type="text/javascript">
 	atOptions = {
 		'key' : '26ab5f7e2864a41f249fc7e5a2522d5d',
@@ -155,6 +160,7 @@
 <script type="text/javascript" src="//fryboldlymalice.com/26ab5f7e2864a41f249fc7e5a2522d5d/invoke.js"></script>
 
 <script type='text/javascript' src='//fryboldlymalice.com/04/a8/e7/04a8e72e519ef1af64c4bed16f6c43ed.js'></script>
+	
     </div>
     <div class="container" id="movies-container">
         <!-- Movies will be displayed here -->
@@ -168,8 +174,9 @@
             <p class="genres" id="modal-genres"></p>
             <p id="modal-overview"></p>
             <p id="modal-release-date"></p>
-            <iframe id="modal-trailer" width="100%" height="560" frameborder="0" allowfullscreen></iframe>
+            <iframe id="modal-trailer" height="315" allowfullscreen></iframe>
             <div class="ad-section">
+
 <script type="text/javascript">
 	atOptions = {
 		'key' : '26ab5f7e2864a41f249fc7e5a2522d5d',
@@ -179,17 +186,18 @@
 		'params' : {}
 	};
 </script>
-<script type="text/javascript" src="//fryboldlymalice.com/26ab5f7e2864a41f249fc7e5a2522d5d/invoke.js"></script>
+<script type="text/javascript" src="//fryboldlymalice.com/26ab5f7e2864a41f249fc7e5a2522d5d/invoke.js"></script>	
+			
             </div>
             <button onclick="goBackToMovies()">Back to Movies</button>
         </div>
     </div>
 
     <script>
-        const API_KEY = '3f45488e50ce5ef5a25ed21f1fcd98f3'; // Ganti dengan API key TMDB Anda
+        const API_KEY = '3f45488e50ce5ef5a25ed21f1fcd98f3';
         const BASE_URL = 'https://api.themoviedb.org/3';
         const IMG_URL = 'https://image.tmdb.org/t/p/w500';
-        const BACKDROP_URL = 'https://image.tmdb.org/t/p/original';
+        const BACKDROP_URL = 'https://image.tmdb.org/t/p/w1280';
 
         async function fetchMovies(url) {
             try {
@@ -214,11 +222,11 @@
         function displayMovies(movies) {
             const moviesContainer = document.getElementById('movies-container');
             moviesContainer.innerHTML = movies.map(movie => {
-                const year = movie.release_date ? `(${movie.release_date.split('-')[0]})` : '';
+                const releaseYear = new Date(movie.release_date).getFullYear();
                 return `
                     <div class="movie" onclick="fetchMovieDetails(${movie.id})">
-                        <img src="${IMG_URL + movie.poster_path}" alt="${movie.title}">
-                        <h3>${movie.title} ${year}</h3>
+                        <img src="${BACKDROP_URL + movie.backdrop_path}" alt="${movie.title}">
+                        <h3>${movie.title} (${releaseYear})</h3>
                         <p class="release-date">Release Date: ${movie.release_date}</p>
                         <p>Rating: ${movie.vote_average}</p>
                     </div>
@@ -259,7 +267,6 @@
             }
         }
 
-        // Fetch popular movies on page load
         fetchMovies(`${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1`);
     </script>
 </body>
